@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Latihan 03 Syahril</title>
+    <title>{{ $title ?? 'Latihan 03 Login Syahril' }}</title>
 
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -40,12 +40,13 @@
             <!-- Main Content -->
             <div id="content">
 
-                {{-- <!-- Topbar -->
-                <x-topbar>{{ $title }}</x-topbar>
-                <!-- End Topbar --> --}}
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+
+                    <div class="card-body">
+                    <h1 class=>{{ $title ?? 'Dashboard' }}</h1>
+                    </div>
+
                     @if (session('success'))
                         <div id="alertBox" class="alert alert-success alert-dismissible fade show">
                             {{ session('success') }}
@@ -64,16 +65,6 @@
 
             </div>
             <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Syahril 2026</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
