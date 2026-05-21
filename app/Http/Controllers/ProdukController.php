@@ -37,8 +37,8 @@ class ProdukController extends Controller
         ]);
 
         // Upload gambar (jika ada)
-        if ($request->hasFile('gambar')) {
-            $file = $request->file('gambar');
+        if ($request->hasFile('gambar_produk')) {
+            $file = $request->file('gambar_produk');
             $nama_file = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('gambar_produk'), $nama_file);
         } else {
