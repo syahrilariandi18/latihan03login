@@ -193,7 +193,7 @@ class TransaksiController extends Controller
     public function detail($id)
     {
         // Menggunakan 'detail.produk' (tanpa s) sesuai nama relasi tunggal di Model Transaksi
-        $transaksi = Transaksi::with(['detail.produk', 'user'])->findOrFail($id);
+        $transaksi = Transaksi::with(['rincian.produk', 'user'])->findOrFail($id);
 
         return view('Transaksi.Detail_Transaksi', [
             'title'     => 'Detail Transaksi',

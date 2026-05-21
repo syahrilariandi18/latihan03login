@@ -59,7 +59,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($transaksi->detail as $index => $item)
+                                @foreach($transaksi->rincian as $index => $item)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $item->produk->nama_produk ?? '[Produk Dihapus]' }}</td>
