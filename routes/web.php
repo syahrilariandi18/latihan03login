@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProdukController;
 
 // Route Login & Logout
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
@@ -48,9 +49,23 @@ Route::get('/Transaksi', function () {
 })->middleware('auth');
 
 // Route Data Produk - hanya admin dan kepala_toko
-Route::get('/DataProduk', function () {
-    return view('Produk.Data_Produk', ['title' => 'Data Produk']);
-})->middleware('role:admin,kepala_toko');
+Route::get('/DataProduk', [ProdukController::class, 'index'])
+    ->middleware('role:admin,kepala_toko');
+Route::get('/TambahProduk', [ProdukController::class, 'tambah'])
+    ->middleware('role:admin,kepala_toko');
+Route::post('/SimpanProduk', [ProdukController::class, 'simpan'])
+    ->middleware('role:admin,kepala_toko');
+Route::get('/DetailProduk/{id}', [ProdukController::class, 'detail'])
+    ->middleware('role:admin,kepala_toko');
+Route::get('/EditProduk/{id}', [ProdukController::class, 'edit'])
+    ->middleware('role:admin,kepala_toko');
+Route::post('/UpdateProduk/{id}', [ProdukController::class, 'update'])
+    ->middleware('role:admin,kepala_toko');
+Route::get('/HapusProduk/{id}', [ProdukController::class, 'hapus'])
+    ->middleware('role:admin,kepala_toko');
+// Route::get('/DataProduk', function () {
+//     return view('Produk.Data_Produk', ['title' => 'Data Produk']);
+// })->middleware('role:admin,kepala_toko');
 
 // Route About - semua role yang login bisa akses
 Route::get('/About', function () {
