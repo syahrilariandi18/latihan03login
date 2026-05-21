@@ -21,7 +21,7 @@
 
     <!-- MENU UNTUK ALL ROLE (Kasir, Kepala Toko, Admin) -->
     <li class="nav-item">
-        <a class="nav-link" href="/Transaksi">
+        <a class="nav-link" href="/transaksi">
             <i class="fas fa-fw fa-shopping-cart"></i>
             <span>Transaksi</span>
         </a>
