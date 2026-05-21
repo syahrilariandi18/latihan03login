@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\TransaksiController;
 
 // Route Login & Logout
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
@@ -43,24 +44,50 @@ Route::get('/kasir/dashboard', [DashboardController::class, 'kasirDashboard'])
 
 // Route lainnya (belum ada middleware, akan ditambahkan nanti)
 
-// Route Transaksi - semua role yang login bisa akses
-Route::get('/Transaksi', function () {
-    return view('transaksi', ['title' => 'Transaksi']);
-})->middleware('auth');
+// Route Transaksi - semua role yang login bisa akses    
+Route::get('/transaksi', [TransaksiController::class, 'index'])
+    ->name('transaksi.index');
+
+Route::post('/transaksi/tambah-keranjang', [TransaksiController::class, 'addToCart'])
+    ->name('transaksi.addToCart');
+    
+Route::get('/transaksi/hapus-keranjang/{produk_id}', [TransaksiController::class, 'removeFromCart'])
+    ->name('transaksi.removeFromCart');
+    
+Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])
+    ->name('transaksi.checkout');
+    
+Route::get('/transaksi/riwayat', [TransaksiController::class, 'riwayat'])
+    ->name('transaksi.riwayat');
+    
+Route::get('/transaksi/detail/{id}', [TransaksiController::class, 'detail'])
+    ->name('transaksi.detail');
+
+Route::middleware(['auth'])->group(function () {
+});
+// Route::get('/Transaksi', function () {
+//     return view('transaksi', ['title' => 'Transaksi']);
+// })->middleware('auth');
 
 // Route Data Produk - hanya admin dan kepala_toko
 Route::get('/DataProduk', [ProdukController::class, 'index'])
     ->middleware('role:admin,kepala_toko');
+    
 Route::get('/TambahProduk', [ProdukController::class, 'tambah'])
     ->middleware('role:admin,kepala_toko');
+
 Route::post('/SimpanProduk', [ProdukController::class, 'simpan'])
     ->middleware('role:admin,kepala_toko');
+
 Route::get('/DetailProduk/{id}', [ProdukController::class, 'detail'])
     ->middleware('role:admin,kepala_toko');
+
 Route::get('/EditProduk/{id}', [ProdukController::class, 'edit'])
     ->middleware('role:admin,kepala_toko');
+
 Route::post('/UpdateProduk/{id}', [ProdukController::class, 'update'])
     ->middleware('role:admin,kepala_toko');
+    
 Route::get('/HapusProduk/{id}', [ProdukController::class, 'hapus'])
     ->middleware('role:admin,kepala_toko');
 // Route::get('/DataProduk', function () {
