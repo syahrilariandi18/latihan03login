@@ -49,7 +49,7 @@ Route::get('/Transaksi', function () {
 
 // Route Data Produk - hanya admin dan kepala_toko
 Route::get('/DataProduk', function () {
-    return view('data-produk', ['title' => 'Data Produk']);
+    return view('Produk.Data_Produk', ['title' => 'Data Produk']);
 })->middleware('role:admin,kepala_toko');
 
 // Route About - semua role yang login bisa akses
