@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('detail_transaksi', function (Blueprint $table) {
             $table->id();
             
-            // Otomatis terhubung ke tabel 'transactions' di atas
+            // Otomatis terhubung ke tabel 'transaksi' di atas
             $table->foreignId('transaksi_id')->constrained('transaksi')->onDelete('cascade');
             
-            // Otomatis terhubung ke tabel 'products' (pastikan nama tabel produkmu nanti 'products')
+            // Otomatis terhubung ke tabel 'produk' (pastikan nama tabel produkmu nanti 'produk')
             $table->foreignId('produk_id')->constrained('produk')->onDelete('cascade');
             
             $table->integer('qty');

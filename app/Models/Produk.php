@@ -16,4 +16,9 @@ class Produk extends Model
         'stok',
         'gambar'
     ];
+
+    public function detailTransaksi()
+    {
+        return $this->hasMany(DetailTransaksi::class, 'produk_id');
+    }
 }
