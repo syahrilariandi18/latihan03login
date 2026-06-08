@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\DetailTransaksi;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TransaksiController extends Controller
 {
@@ -200,4 +202,27 @@ class TransaksiController extends Controller
             'transaksi' => $transaksi,
         ]);
     }
+
+    /**
+     * CETAK STRUK PDF
+     */
+    public function cetakPdf($id)
+    {
+        // Mengambil data transaksi beserta rincian produk dan kasir yang melayani
+        $transaksi = Transaksi::with(['rincian.produk', 'user'])->findOrFail($id);
+
+        // Memuat halaman view khusus struk dan mengirim data $transaksi
+        $pdf = Pdf::loadView('Transaksi.Struk_PDF', [
+            'title'     => 'Struk_' . $transaksi->kode_transaksi,
+            'transaksi' => $transaksi,
+        ]);
+
+        // Mengatur ukuran kertas menjadi ukuran struk thermal kasir (Lebar 80mm x Tinggi otomatis/panjang)
+        // 226.77 pt sekitar 80mm. Kamu juga bisa pakai ukuran 'a5' atau 'letter' jika ingin kertas nota biasa.
+        $pdf->setPaper([0, 0, 226.77, 500], 'portrait');
+
+        // Menampilkan PDF langsung di browser (stream)
+        return $pdf->stream('Struk-' . $transaksi->kode_transaksi . '.pdf');
+    }
+    
 }

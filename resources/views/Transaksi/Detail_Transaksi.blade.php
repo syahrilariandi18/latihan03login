@@ -86,6 +86,9 @@
             <a href="{{ route('transaksi.index') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Transaksi Baru
             </a>
+            <a href="{{ route('transaksi.cetakPdf', $transaksi->id) }}" class="btn btn-danger" target="_blank">
+                <i class="fas fa-file-pdf"></i> Cetak Struk PDF
+            </a>
 
         </div>
     </div>

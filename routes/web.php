@@ -63,6 +63,9 @@ Route::get('/transaksi/riwayat', [TransaksiController::class, 'riwayat'])
 Route::get('/transaksi/detail/{id}', [TransaksiController::class, 'detail'])
     ->name('transaksi.detail');
 
+Route::get('/transaksi/cetak-pdf/{id}', [TransaksiController::class, 'cetakPdf'])
+    ->name('transaksi.cetakPdf');
+
 Route::middleware(['auth'])->group(function () {
 });
 // Route::get('/Transaksi', function () {
